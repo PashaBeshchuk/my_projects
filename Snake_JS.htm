@@ -20,7 +20,7 @@
 			table{
 				border:1px solid black;
 				border-spacing:0px;
-				margin:auto;
+				//margin:auto;
 				background:black;
 			}
 			
@@ -86,61 +86,63 @@
 		var keyCodeLeftButton = snakeDirectionLeft;
 		var keyCodeUpButton = snakeDirectionUp;
 		var keyCodeDownButton = snakeDirectionDow;
-		var cellsPerSecond = 1;
+		var cellsPerSecond = 2;
 		var second = 1000;
+		var bodySnakePosition = [[numberOfLines/2,numberOfCellsPerLine/2]];
 		var keyCode;
-		var foodPosition; 
-		var allLinesOnField;
-		var bodySnakePosition = [[numberOfLines/2,numberOfCellsPerLine/2]];;
+		var foodPosition;
 		var headSnake;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
+		var lastKeyCode;
 		var snakeLength = 2;
 		
+		
 		window.addEventListener("keydown", saveKeyCode);
-		buildField();
+		buildField(numberOfLines, numberOfCellsPerLine);
 		buildBodyForSnake(snakeLength, bodySnakePosition);
-		allLinesOnField = document.querySelectorAll("tr");
 		paintSnakeBody(bodySnakePosition);
 		
 		function tick(){
+			console.log(keyCode)
+			console.log(lastKeyCode)
 			keyCodeRightButton = snakeDirectionRight;
 			keyCodeLeftButton = snakeDirectionLeft;
 			keyCodeUpButton = snakeDirectionUp;
 			keyCodeDownButton = snakeDirectionDow;
 			oldPositionSnake = bodySnakePosition.slice(0);
-			var defaultSnakeCondition = [0,0];
-			if(arraysEqual(defineStep(),defaultSnakeCondition)){
+			if(defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton) === undefined){
 				return;
 			}
 			removeBodySnake(oldPositionSnake);
-			var step = defineStep();
+			var step = defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton);
 			headSnake = bodySnakePosition[0];
 			headSnake = [headSnake[0] + step[0],headSnake[1] + step[1]];
 			bodySnakePosition.unshift(headSnake);
 			bodySnakePosition.pop();
 			killSnake(oldPositionSnake);
-			if(foodPosition == undefined){
-				setPositionForFood();
-				createFood();
+			if(foodPosition === undefined){
+				setPositionForFood(bodySnakePosition,foodPosition);
+				createFood(foodPosition);
 			}
 			paintSnakeBody(bodySnakePosition);
 			if(arraysEqual(bodySnakePosition[0],foodPosition)){
-				removeFood();
+				removeFood(bodySnakePosition[0]);
 				bodySnakePosition.push(foodPosition);
 				foodPosition = undefined;
-			} 
+			}
+			lastKeyCode = keyCode;
 		}
 		
-		function buildField(){
+		function buildField(fieldLines, fieldCells){
 			var table  = document.createElement("table");
 			document.body.appendChild(table);
 						 
-			for(var fieldLength  = 0; fieldLength < numberOfLines; fieldLength++){
+			for(var fieldLength  = 0; fieldLength < fieldLines; fieldLength++){
 				var line = document.createElement("tr");
 				table.appendChild(line);
 				
-				 for(var fieldWidth = 0; fieldWidth < numberOfCellsPerLine; fieldWidth++){
+				 for(var fieldWidth = 0; fieldWidth < fieldCells; fieldWidth++){
 					var cells = document.createElement("td");
 					line.appendChild(cells);
 				}				
@@ -148,6 +150,7 @@
 		}
 		
 		function getCell(variable){
+			var allLinesOnField = document.querySelectorAll("tr");
 			return allLinesOnField[variable[0]].childNodes[variable[1]];
 		}
 		 
@@ -170,65 +173,68 @@
 			}
 		}
 				
-		function defineStep(){ 
-				switch(keyCode){
-					case keyCodeRightButton:
-						keyCodeLeftButton = undefined;
-						return [0, 1];
-					case keyCodeLeftButton:
-						keyCodeRightButton = undefined;
-						return [0,-1];
-					case keyCodeUpButton:
-						keyCodeDownButton = undefined;
-						return [-1, 0];
-					case keyCodeDownButton:
-						keyCodeUpButton = undefined;
-						return [1, 0];
-					default:
-						return [0,0];
-				}
+		function defineStep(rightButton, leftButton, upButton, downButton){
+			switch(keyCode){
+				case rightButton:
+					leftButton = undefined;
+					return [0, 1];
+				case leftButton:
+					rightButton = undefined;
+					return [0,-1];
+				case upButton:
+					keyCodeDownButton = undefined;
+					return [-1, 0];
+				case downButton:
+					keyCodeUpButton = undefined;
+					return [1, 0];
+				default:
+					return undefined;
 			}
+		}
 			
-		function setPositionForFood(){
+		function setPositionForFood(coordinatesPositionSnake,coordinatesFood){
 			var suitableNumber = false;
 			while(suitableNumber === false){
 				suitableNumber = true;
-				foodPosition = [
+				coordinatesFood = [
 					(Math.floor(Math.random()*numberOfLines)),
 					(Math.floor(Math.random()*numberOfCellsPerLine))
 				];
-				for(var numberSnakeBodyElement = 0; numberSnakeBodyElement < bodySnakePosition.length; numberSnakeBodyElement++){
-					if(arraysEqual(bodySnakePosition[numberSnakeBodyElement],foodPosition)){
+				for(var numberSnakeBodyElement = 0; numberSnakeBodyElement < coordinatesPositionSnake.length; numberSnakeBodyElement++){
+					if(arraysEqual(coordinatesPositionSnake[numberSnakeBodyElement],coordinatesFood)){
 						suitableNumber = false;
 						break;
 					}
 				}
 			}
-			return foodPosition;
+			foodPosition = coordinatesFood.slice(0);
+			return coordinatesFood;
 		}		
 		
 		function buildBodyForSnake(lengthBody, SnakePosition){
 			for(var tailNumberSnake = 1; tailNumberSnake < lengthBody; tailNumberSnake++){
 				var mathClone = SnakePosition[0].slice(0);
-					mathClone[1] = +mathClone[1] + tailNumberSnake;
-					SnakePosition.push(mathClone);
+				mathClone[1] = mathClone[1] + tailNumberSnake;
+				SnakePosition.push(mathClone);
 			}
 			return SnakePosition;
 		}
 		
 		function killSnake(positionSnake){
-			if(bodySnakePosition[0][0] == -1 || bodySnakePosition[0][1] == -1){
+			var snakeHead = bodySnakePosition[0];
+			if(snakeHead[0] == -1 || snakeHead[1] == -1){
 				paintedDeadSnake(positionSnake);
 			}
-			if(bodySnakePosition[0][0] == numberOfLines){
+			if(snakeHead[0] == numberOfLines){
 				paintedDeadSnake(positionSnake);
 			}
-			if(bodySnakePosition[0][1] == numberOfCellsPerLine){
+			if(snakeHead[1] == numberOfCellsPerLine){
 				paintedDeadSnake(positionSnake);
 			}
 			for(var bodyElementSnake = 1; bodyElementSnake < bodySnakePosition.length; bodyElementSnake++){	
-				if(arraysEqual(bodySnakePosition[0],bodySnakePosition[bodyElementSnake])){
+				if(arraysEqual(snakeHead,bodySnakePosition[bodyElementSnake])){
 					paintedDeadSnake(positionSnake);
+					break;
 				}
 			}
 		}
@@ -240,16 +246,16 @@
 			}
 		}
 		
-		function arraysEqual(arrays,comparisonItem){
-			return arrays.toString() === comparisonItem.toString();
+		function arraysEqual(firstArray,sacondArray){
+			return firstArray.toString() === sacondArray.toString();
 		}
 		
-		function createFood(){
-			getCell(foodPosition).classList.add("foodForSnake");
+		function createFood(snakeFood){
+			getCell(snakeFood).classList.add("foodForSnake");
 		}
 		
-		function removeFood(){
-			getCell(bodySnakePosition[0]).classList.remove("foodForSnake");
+		function removeFood(headSnake){
+			getCell(headSnake).classList.remove("foodForSnake");
 		}
 	</script>
 	</body>
