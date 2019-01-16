@@ -86,7 +86,7 @@
 		var keyCodeLeftButton = snakeDirectionLeft;
 		var keyCodeUpButton = snakeDirectionUp;
 		var keyCodeDownButton = snakeDirectionDow;
-		var cellsPerSecond = 2;
+		var cellsPerSecond = 1;
 		var second = 1000;
 		var bodySnakePosition = [[numberOfLines/2,numberOfCellsPerLine/2]];
 		var keyCode;
@@ -95,6 +95,7 @@
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
 		var lastKeyCode;
+		var keystrokeHistory = [];
 		var snakeLength = 2;
 		
 		
@@ -104,8 +105,6 @@
 		paintSnakeBody(bodySnakePosition);
 		
 		function tick(){
-			console.log(keyCode)
-			console.log(lastKeyCode)
 			keyCodeRightButton = snakeDirectionRight;
 			keyCodeLeftButton = snakeDirectionLeft;
 			keyCodeUpButton = snakeDirectionUp;
@@ -132,6 +131,8 @@
 				foodPosition = undefined;
 			}
 			lastKeyCode = keyCode;
+			keystrokeHistory = [];
+			
 		}
 		
 		function buildField(fieldLines, fieldCells){
@@ -164,6 +165,7 @@
 		function saveKeyCode(e){
 			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
 				keyCode = e.keyCode;
+				defineTheLastButtonPressed(keyCode, lastKeyCode, keystrokeHistory);
 			}
 		}
 		
@@ -176,16 +178,12 @@
 		function defineStep(rightButton, leftButton, upButton, downButton){
 			switch(keyCode){
 				case rightButton:
-					leftButton = undefined;
 					return [0, 1];
 				case leftButton:
-					rightButton = undefined;
 					return [0,-1];
 				case upButton:
-					keyCodeDownButton = undefined;
 					return [-1, 0];
 				case downButton:
-					keyCodeUpButton = undefined;
 					return [1, 0];
 				default:
 					return undefined;
@@ -257,6 +255,23 @@
 		function removeFood(headSnake){
 			getCell(headSnake).classList.remove("foodForSnake");
 		}
+		function defineTheLastButtonPressed(newKeyCode, lastKeyCod, keyHistory){
+			var keyPressed;
+			keyPressed = newKeyCode
+			keyHistory.push(keyPressed);
+			console.log(keyHistory + " Массив кнопак")
+			console.log(newKeyCode)
+			if(keyHistory[keyHistory.length-1] == 39 && newKeyCode == 37){
+				defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton) =  [0,-1];
+				return defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton);
+			}
+			
+			console.log( + " Последний элемент массива")
+			
+			console.log(lastKeyCode + " Старый код кнопки")
+			console.log(defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton) + " направление")*/
+		} 
+		
 	</script>
 	</body>
 <html>
