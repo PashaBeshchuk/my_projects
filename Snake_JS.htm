@@ -91,7 +91,6 @@
 		var bodySnakePosition = [[numberOfLines/2,numberOfCellsPerLine/2]];
 		var keyCode;
 		var foodPosition;
-		var headSnake;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
 		var historyOfTheSnakesWay = [];
@@ -106,6 +105,7 @@
 		paintSnakeBody(bodySnakePosition);
 		
 		function tick(){
+			var headSnake;
 			oldPositionSnake = bodySnakePosition.slice(0);
 			if(defineStep() === undefined){
 				return;
@@ -120,7 +120,7 @@
 			bodySnakePosition.pop();
 			killSnake(oldPositionSnake);
 			if(foodPosition === undefined){
-				setPositionForFood(bodySnakePosition,foodPosition);
+				setPositionForFood(bodySnakePosition);
 				createFood(foodPosition);
 			}
 			paintSnakeBody(bodySnakePosition);
@@ -189,23 +189,22 @@
 			}
 		}
 		
-		function setPositionForFood(coordinatesPositionSnake,coordinatesFood){
+		function setPositionForFood(coordinatesPositionSnake){
 			var suitableNumber = false;
 			while(suitableNumber === false){
 				suitableNumber = true;
-				coordinatesFood = [
+				foodPosition = [
 					(Math.floor(Math.random()*numberOfLines)),
 					(Math.floor(Math.random()*numberOfCellsPerLine))
 				];
 				for(var numberSnakeBodyElement = 0; numberSnakeBodyElement < coordinatesPositionSnake.length; numberSnakeBodyElement++){
-					if(arraysEqual(coordinatesPositionSnake[numberSnakeBodyElement],coordinatesFood)){
+					if(arraysEqual(coordinatesPositionSnake[numberSnakeBodyElement],foodPosition)){
 						suitableNumber = false;
 						break;
 					}
 				}
 			}
-			foodPosition = coordinatesFood.slice(0);
-			return coordinatesFood;
+			return foodPosition;
 		}		
 		
 		function buildBodyForSnake(lengthBody){
