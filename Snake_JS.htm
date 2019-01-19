@@ -163,7 +163,7 @@
 			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
 				keyCode = e.keyCode;
 				historyKeyPress.push(keyCode);
-				rigisterDirectionsSnake();
+				historyOfTheSnakesWay.push(defineStep());
 			}
 			switch(keyCode){
 				case keyCodeRightButton:
@@ -242,10 +242,6 @@
 		
 		function removeFood(headSnake){
 			getCell(headSnake).classList.remove("foodForSnake");
-		}
-		
-		function rigisterDirectionsSnake(){
-			historyOfTheSnakesWay.push(defineStep());
 		}
 		
 		function snakeStep(){
