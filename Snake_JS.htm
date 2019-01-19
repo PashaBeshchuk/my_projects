@@ -156,7 +156,7 @@
 		function saveKeyCode(e){
 			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
 				keyCode = e.keyCode;
-				historyOfTheSnakesWay.push(defineStep());
+				historyOfTheSnakesWay.push(saveKeyCode());
 			}
 			switch(keyCode){
 				case keyCodeRightButton:
