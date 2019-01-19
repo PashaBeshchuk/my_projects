@@ -89,7 +89,7 @@
 		var cellsPerSecond = 1;
 		var second = 1000;
 		var bodySnakePosition = [[numberOfLines/2,numberOfCellsPerLine/2]];
-		var keyCode;
+		
 		var foodPosition;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
@@ -159,6 +159,7 @@
 		}
 		
 		function saveKeyCode(e){
+			var keyCode;
 			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
 				keyCode = e.keyCode;
 				historyKeyPress.push(keyCode);
