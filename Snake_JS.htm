@@ -94,7 +94,7 @@
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
 		var historyOfTheSnakesWay = [];
-		var historyKeyPress = [];
+		
 		var lastSnakePath;
 		var snakeLength = 2;
 		
@@ -129,7 +129,6 @@
 			}
 			lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1]
 			historyOfTheSnakesWay = [];
-			historyKeyPress = [];
 		}
 		
 		function buildField(fieldLines, fieldCells){
@@ -162,7 +161,6 @@
 			var keyCode;
 			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
 				keyCode = e.keyCode;
-				historyKeyPress.push(keyCode);
 				historyOfTheSnakesWay.push(defineStep());
 			}
 			switch(keyCode){
