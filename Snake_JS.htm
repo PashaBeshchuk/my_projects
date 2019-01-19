@@ -84,7 +84,7 @@
 		var keyCodeDownButton = 40;
 		var cellsPerSecond = 1;
 		var second = 1000;
-		var bodySnakePosition = [[numberOfLines/2,numberOfCellsPerLine/2]];
+		
 		
 		var foodPosition;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
@@ -104,8 +104,7 @@
 			oldPositionSnake = bodySnakePosition.slice(0);
 			removeBodySnake(oldPositionSnake);
 			var step = snakeStep(lastSnakePath,historyOfTheSnakesWay);
-			var headSnake;
-			headSnake = bodySnakePosition[0];
+			var headSnake = bodySnakePosition[0];
 			headSnake = [headSnake[0] + step[0],headSnake[1] + step[1]];
 			bodySnakePosition.unshift(headSnake);
 			bodySnakePosition.pop();
