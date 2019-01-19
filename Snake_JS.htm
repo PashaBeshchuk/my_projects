@@ -212,7 +212,7 @@
 		
 		function killSnake(positionSnake){
 			var snakeHead = bodySnakePosition[0];
-			if(snakeHead[0] == -1 || snakeHead[1] == -1 || snakeHead[0] == numberOfLines || (snakeHead[1] == numberOfCellsPerLine){
+			if(snakeHead[0] == -1 || snakeHead[1] == -1 || snakeHead[0] == numberOfLines || snakeHead[1] == numberOfCellsPerLine){
 				paintedDeadSnake(positionSnake);
 			}
 			for(var bodyElementSnake = 1; bodyElementSnake < bodySnakePosition.length; bodyElementSnake++){	
