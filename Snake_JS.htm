@@ -102,7 +102,7 @@
 		
 		window.addEventListener("keydown", saveKeyCode);
 		buildField(numberOfLines, numberOfCellsPerLine);
-		buildBodyForSnake(snakeLength, bodySnakePosition);
+		buildBodyForSnake(snakeLength);
 		paintSnakeBody(bodySnakePosition);
 		
 		function tick(){
@@ -208,13 +208,13 @@
 			return coordinatesFood;
 		}		
 		
-		function buildBodyForSnake(lengthBody, snakePosition){
+		function buildBodyForSnake(lengthBody){
 			for(var tailNumberSnake = 1; tailNumberSnake < lengthBody; tailNumberSnake++){
-				var mathClone = snakePosition[0].slice(0);
+				var mathClone = bodySnakePosition[0].slice(0);
 				mathClone[1] = mathClone[1] + tailNumberSnake;
-				snakePosition.push(mathClone);
+				bodySnakePosition.push(mathClone);
 			}
-			return snakePosition;
+			return bodySnakePosition;
 		}
 		
 		function killSnake(positionSnake){
