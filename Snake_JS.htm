@@ -84,7 +84,7 @@
 		var keyCodeDownButton = 40;
 		var cellsPerSecond = 1;
 		var second = 1000;
-		var bodySnakePosition = buildBodyForSnake(snakeLength, bodySnakePosition);
+		var bodySnakePosition = buildBodyForSnake(snakeLength);
 		
 		var foodPosition;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
@@ -195,7 +195,8 @@
 			return foodPosition;
 		}		
 		
-		function buildBodyForSnake(lengthBody, snakePosition){
+		function buildBodyForSnake(lengthBody){
+			snakePosition = [[numberOfLines/2,numberOfCellsPerLine/2]];
 			for(var tailNumberSnake = 1; tailNumberSnake < lengthBody; tailNumberSnake++){
 				var mathClone = snakePosition[0].slice(0);
 				mathClone[1] = mathClone[1] + tailNumberSnake;
