@@ -102,9 +102,6 @@
 		
 		function tick(){
 			oldPositionSnake = bodySnakePosition.slice(0);
-			if(lastSnakePath === undefined){
-				return;
-			}
 			removeBodySnake(oldPositionSnake);
 			var step = snakeStep(lastSnakePath,historyOfTheSnakesWay);
 			var headSnake;
