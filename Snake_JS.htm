@@ -76,8 +76,8 @@
 	<body>
 
 	<script>
-		var numberOfLines = 4;
-		var numberOfCellsPerLine = 6;
+		var numberOfLines = 8;
+		var numberOfCellsPerLine = 16;
 		var snakeDirectionLeft = 37;
 		var snakeDirectionRight = 39;
 		var snakeDirectionUp = 38;
@@ -94,8 +94,9 @@
 		var headSnake;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
-		var lastKeyCode;
-		var keystrokeHistory = [];
+		var historyOfTheSnakesWay = [];
+		var historyKeyPress = [];
+		var lastSnakePath;
 		var snakeLength = 2;
 		
 		
@@ -110,11 +111,13 @@
 			keyCodeUpButton = snakeDirectionUp;
 			keyCodeDownButton = snakeDirectionDow;
 			oldPositionSnake = bodySnakePosition.slice(0);
-			if(defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton) === undefined){
+			if(defineStep() === undefined){
 				return;
 			}
 			removeBodySnake(oldPositionSnake);
-			var step = defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton);
+			var step = snakeStep();
+			console.log(step[0])
+			console.log(step[1])
 			headSnake = bodySnakePosition[0];
 			headSnake = [headSnake[0] + step[0],headSnake[1] + step[1]];
 			bodySnakePosition.unshift(headSnake);
@@ -130,9 +133,9 @@
 				bodySnakePosition.push(foodPosition);
 				foodPosition = undefined;
 			}
-			lastKeyCode = keyCode;
-			keystrokeHistory = [];
-			
+			lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1]
+			historyOfTheSnakesWay = [];
+			historyKeyPress = [];
 		}
 		
 		function buildField(fieldLines, fieldCells){
@@ -159,13 +162,13 @@
 			for(var numberSnakeBodyElement = 0; numberSnakeBodyElement < positionSnake.length; numberSnakeBodyElement++){
 				getCell(positionSnake[numberSnakeBodyElement]).classList.add("paintSnakeBody");
 			}
-			
 		}
 		
 		function saveKeyCode(e){
 			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
 				keyCode = e.keyCode;
-				defineTheLastButtonPressed(keyCode, lastKeyCode, keystrokeHistory);
+				historyKeyPress.push(keyCode);
+				rigisterDirectionsSnake();
 			}
 		}
 		
@@ -175,21 +178,21 @@
 			}
 		}
 				
-		function defineStep(rightButton, leftButton, upButton, downButton){
+		function defineStep(){
 			switch(keyCode){
-				case rightButton:
+				case keyCodeRightButton:
 					return [0, 1];
-				case leftButton:
+				case keyCodeLeftButton:
 					return [0,-1];
-				case upButton:
+				case keyCodeUpButton:
 					return [-1, 0];
-				case downButton:
+				case keyCodeDownButton:
 					return [1, 0];
 				default:
 					return undefined;
 			}
 		}
-			
+		
 		function setPositionForFood(coordinatesPositionSnake,coordinatesFood){
 			var suitableNumber = false;
 			while(suitableNumber === false){
@@ -255,23 +258,32 @@
 		function removeFood(headSnake){
 			getCell(headSnake).classList.remove("foodForSnake");
 		}
-		function defineTheLastButtonPressed(newKeyCode, lastKeyCod, keyHistory){
-			var keyPressed;
-			keyPressed = newKeyCode
-			keyHistory.push(keyPressed);
-			console.log(keyHistory + " Массив кнопак")
-			console.log(newKeyCode)
-			if(keyHistory[keyHistory.length-1] == 39 && newKeyCode == 37){
-				defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton) =  [0,-1];
-				return defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton);
-			}
-			
-			console.log( + " Последний элемент массива")
-			
-			console.log(lastKeyCode + " Старый код кнопки")
-			console.log(defineStep(keyCodeRightButton, keyCodeLeftButton, keyCodeUpButton, keyCodeDownButton) + " направление")*/
-		} 
 		
+		function rigisterDirectionsSnake(){
+			historyOfTheSnakesWay.push(defineStep());
+		}
+		
+		function snakeStep(){
+			for(var i = historyOfTheSnakesWay.length-1; i > 0; i--){
+				if(lastSnakePath == [0,1] && historyOfTheSnakesWay[i] == [0,1] || historyOfTheSnakesWay[i] == [0,-1]){
+				 return [0, 1];
+				}
+				if(lastSnakePath == [0,-1] && historyOfTheSnakesWay[i] == [0,-1] || historyOfTheSnakesWay[i] == [0,1]){
+				 return [0, -1];
+				}
+				if(lastSnakePath == [1,0] && historyOfTheSnakesWay[i] == [1,0] || historyOfTheSnakesWay[i] == [-1,0]){
+				 return [1, 0];
+				}
+				if(lastSnakePath == [-1,0] && historyOfTheSnakesWay[i] == [-1,0] || historyOfTheSnakesWay[i] == [1,0]){
+				 return [-1, 0];
+				}
+		   }
+			   if(lastSnakePath == undefined){
+				return [0,-1];
+			   }
+		}	
+	
+			
 	</script>
 	</body>
 <html>
