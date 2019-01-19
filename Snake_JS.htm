@@ -85,7 +85,7 @@
 		var cellsPerSecond = 1;
 		var second = 1000;
 		var bodySnakePosition = [[numberOfLines/2,numberOfCellsPerLine/2]];
-		var keyCode;
+		
 		var foodPosition;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
@@ -154,6 +154,7 @@
 		}
 		
 		function saveKeyCode(e){
+			var keyCode;
 			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
 				keyCode = e.keyCode;
 				historyOfTheSnakesWay.push(saveKeyCode());
@@ -251,10 +252,10 @@
 				if(lastSnakeWay == [-1,0] && historyOfTheWay[i] == [-1,0] || historyOfTheWay[i] == [1,0]){
 				 return [-1, 0];
 				}
-		   }
-		   if(lastSnakeWay == undefined){
-			return [0,-1];
-		   }
+			}
+			if(lastSnakeWay == undefined){
+				return [0,-1];
+			}
 		}	
 	
 			
