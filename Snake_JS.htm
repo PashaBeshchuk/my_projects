@@ -106,10 +106,6 @@
 		paintSnakeBody(bodySnakePosition);
 		
 		function tick(){
-			keyCodeRightButton = snakeDirectionRight;
-			keyCodeLeftButton = snakeDirectionLeft;
-			keyCodeUpButton = snakeDirectionUp;
-			keyCodeDownButton = snakeDirectionDow;
 			oldPositionSnake = bodySnakePosition.slice(0);
 			if(defineStep() === undefined){
 				return;
@@ -212,13 +208,13 @@
 			return coordinatesFood;
 		}		
 		
-		function buildBodyForSnake(lengthBody, SnakePosition){
+		function buildBodyForSnake(lengthBody, snakePosition){
 			for(var tailNumberSnake = 1; tailNumberSnake < lengthBody; tailNumberSnake++){
-				var mathClone = SnakePosition[0].slice(0);
+				var mathClone = snakePosition[0].slice(0);
 				mathClone[1] = mathClone[1] + tailNumberSnake;
-				SnakePosition.push(mathClone);
+				snakePosition.push(mathClone);
 			}
-			return SnakePosition;
+			return snakePosition;
 		}
 		
 		function killSnake(positionSnake){
