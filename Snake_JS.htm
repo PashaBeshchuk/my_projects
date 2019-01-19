@@ -112,8 +112,6 @@
 			}
 			removeBodySnake(oldPositionSnake);
 			var step = snakeStep();
-			console.log(step[0])
-			console.log(step[1])
 			headSnake = bodySnakePosition[0];
 			headSnake = [headSnake[0] + step[0],headSnake[1] + step[1]];
 			bodySnakePosition.unshift(headSnake);
@@ -166,15 +164,6 @@
 				historyKeyPress.push(keyCode);
 				rigisterDirectionsSnake();
 			}
-		}
-		
-		function removeBodySnake(positionSnake){
-			for(var numberSnakeBodyElement = 0; numberSnakeBodyElement < positionSnake.length; numberSnakeBodyElement++){
-				getCell(positionSnake[numberSnakeBodyElement]).classList.remove("paintSnakeBody");
-			}
-		}
-				
-		function defineStep(){
 			switch(keyCode){
 				case keyCodeRightButton:
 					return [0, 1];
@@ -186,6 +175,12 @@
 					return [1, 0];
 				default:
 					return undefined;
+			}
+		}
+		
+		function removeBodySnake(positionSnake){
+			for(var numberSnakeBodyElement = 0; numberSnakeBodyElement < positionSnake.length; numberSnakeBodyElement++){
+				getCell(positionSnake[numberSnakeBodyElement]).classList.remove("paintSnakeBody");
 			}
 		}
 		
