@@ -84,7 +84,7 @@
 		var keyCodeDownButton = 40;
 		var cellsPerSecond = 1;
 		var second = 1000;
-		
+		var bodySnakePosition = buildBodyForSnake(snakeLength, bodySnakePosition);
 		
 		var foodPosition;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
@@ -97,7 +97,6 @@
 		
 		window.addEventListener("keydown", saveKeyCode);
 		buildField(numberOfLines, numberOfCellsPerLine);
-		buildBodyForSnake(snakeLength, bodySnakePosition);
 		paintSnakeBody(bodySnakePosition);
 		
 		function tick(){
