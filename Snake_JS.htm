@@ -197,13 +197,13 @@
 			return foodPosition;
 		}		
 		
-		function buildBodyForSnake(lengthBody){
+		function buildBodyForSnake(lengthBody, snakePosition){
 			for(var tailNumberSnake = 1; tailNumberSnake < lengthBody; tailNumberSnake++){
-				var mathClone = bodySnakePosition[0].slice(0);
+				var mathClone = snakePosition[0].slice(0);
 				mathClone[1] = mathClone[1] + tailNumberSnake;
-				bodySnakePosition.push(mathClone);
+				snakePosition.push(mathClone);
 			}
-			return bodySnakePosition;
+			return snakePosition;
 		}
 		
 		function killSnake(positionSnake){
