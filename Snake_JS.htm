@@ -108,7 +108,7 @@
 			bodySnakePosition.pop();
 			killSnake(oldPositionSnake);
 			if(foodPosition === undefined){
-				var foodPosition = generateFoodPosition(bodySnakePosition);
+				generateFoodPosition(bodySnakePosition);
 				createFood(foodPosition);
 			}
 			paintSnakeBody(bodySnakePosition);
@@ -181,7 +181,7 @@
 			var suitableNumber = false;
 			while(suitableNumber === false){
 				suitableNumber = true;
-				foodPosition = [
+				var foodPosition = [
 					(Math.floor(Math.random()*numberOfLines)),
 					(Math.floor(Math.random()*numberOfCellsPerLine))
 				];
