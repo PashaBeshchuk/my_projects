@@ -108,7 +108,7 @@
 			bodySnakePosition.pop();
 			killSnake(oldPositionSnake);
 			if(foodPosition === undefined){
-				foodPosition = setPositionForFood(bodySnakePosition, foodPosition);
+				var foodPosition = generateFoodPosition(bodySnakePosition);
 				createFood(foodPosition);
 			}
 			paintSnakeBody(bodySnakePosition);
@@ -177,22 +177,22 @@
 			}
 		}
 		
-		function setPositionForFood(coordinatesPositionSnake, coordinatesFood){
+		function generateFoodPosition(coordinatesPositionSnake){
 			var suitableNumber = false;
 			while(suitableNumber === false){
 				suitableNumber = true;
-				coordinatesFood = [
+				foodPosition = [
 					(Math.floor(Math.random()*numberOfLines)),
 					(Math.floor(Math.random()*numberOfCellsPerLine))
 				];
 				for(var numberSnakeBodyElement = 0; numberSnakeBodyElement < coordinatesPositionSnake.length; numberSnakeBodyElement++){
-					if(arraysEqual(coordinatesPositionSnake[numberSnakeBodyElement],coordinatesFood)){
+					if(arraysEqual(coordinatesPositionSnake[numberSnakeBodyElement],foodPosition)){
 						suitableNumber = false;
 						break;
 					}
 				}
 			}
-			return coordinatesFood;
+			return foodPosition;
 		}		
 		
 		function buildBodyForSnake(lengthBody){
