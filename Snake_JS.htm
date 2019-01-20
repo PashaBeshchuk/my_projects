@@ -108,7 +108,7 @@
 			bodySnakePosition.pop();
 			killSnake(oldPositionSnake);
 			if(foodPosition === undefined){
-				generateFoodPosition(bodySnakePosition);
+				foodPosition = generateFoodPosition(bodySnakePosition);
 				createFood(foodPosition);
 			}
 			paintSnakeBody(bodySnakePosition);
