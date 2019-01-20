@@ -148,11 +148,7 @@
 		}
 		
 		function saveKeyCode(e){
-			var keyCode;
-			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
-				keyCode = e.keyCode;
-			}
-			switch(keyCode){
+			switch(e.keyCode){
 				case keyCodeRightButton:
 					historyOfTheSnakesWay.push([0, 1]);
 				case keyCodeLeftButton:
