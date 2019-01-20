@@ -151,23 +151,18 @@
 			var keyCode;
 			if(e.keyCode == keyCodeRightButton || e.keyCode == keyCodeLeftButton || e.keyCode == keyCodeUpButton || e.keyCode == keyCodeDownButton){
 				keyCode = e.keyCode;
-				historyOfTheSnakesWay.push(saveKeyCode());
 			}
 			switch(keyCode){
 				case keyCodeRightButton:
 					historyOfTheSnakesWay.push([0, 1])
-					return [0, 1];
 				case keyCodeLeftButton:
 					historyOfTheSnakesWay.push([0,-1])
-					return [0,-1];
 				case keyCodeUpButton:
 					historyOfTheSnakesWay.push([-1, 0])
-					return [-1, 0];
 				case keyCodeDownButton:
 					historyOfTheSnakesWay.push([1, 0])
-					return [1, 0];
 				default:
-					return undefined;
+					undefined;
 			}
 		}
 		
