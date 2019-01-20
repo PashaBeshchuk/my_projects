@@ -86,7 +86,7 @@
 		var second = 1000;
 		var bodySnakePosition = buildBodyForSnake(snakeLength);
 		
-		var foodPosition;
+		
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
 		var historyOfTheSnakesWay = [];
@@ -103,12 +103,13 @@
 			oldPositionSnake = bodySnakePosition.slice(0);
 			removeBodySnake(oldPositionSnake);
 			var step = snakeStep(lastSnakePath,historyOfTheSnakesWay);
-			var headSnake = [headSnake[0] + step[0],headSnake[1] + step[1]];
+			var headSnake = [bodySnakePosition[0][0] + step[0],bodySnakePosition[0][1] + step[1]];
 			bodySnakePosition.unshift(headSnake);
 			bodySnakePosition.pop();
 			killSnake(oldPositionSnake);
+			var foodPosition;
 			if(foodPosition === undefined){
-				setPositionForFood(bodySnakePosition);
+				foodPosition = setPositionForFood(bodySnakePosition);
 				createFood(foodPosition);
 			}
 			paintSnakeBody(bodySnakePosition);
