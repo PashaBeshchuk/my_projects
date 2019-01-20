@@ -85,7 +85,7 @@
 		var cellsPerSecond = 1;
 		var second = 1000;
 		var bodySnakePosition = buildBodyForSnake(snakeLength);
-		
+		var foodPosition;
 		
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
@@ -107,7 +107,6 @@
 			bodySnakePosition.unshift(headSnake);
 			bodySnakePosition.pop();
 			killSnake(oldPositionSnake);
-			var foodPosition;
 			if(foodPosition === undefined){
 				foodPosition = setPositionForFood(bodySnakePosition);
 				createFood(foodPosition);
