@@ -114,8 +114,12 @@
 				bodySnakePosition.push(foodPosition);
 				foodPosition = undefined;
 			}
+			if(historyOfTheSnakesWay !== undefined){
+				lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
+			}else{
+				lastSnakePath = [0,-1];
+			}
 			
-			lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
 			historyOfTheSnakesWay = [];
 		}
 		
@@ -232,14 +236,15 @@
 					continue;
 				}
 			}
-			
+			return lastSnakePath;
 		}
 
 		function invertDirection(value){
 			for(var itemNumberValue = 0; itemNumberValue <value.length; itemNumberValue++){
 				value[itemNumberValue] = value[itemNumberValue] * -1;
 			}
-			return value
+			var newValue =  value.slice(0);
+			return newValue;
 		}
 	
 			
