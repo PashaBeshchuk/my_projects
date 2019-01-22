@@ -230,7 +230,8 @@
 		
 		function snakeStep(lastSnakeWay,historyOfTheWay){
 			for(var i = historyOfTheWay.length; i > 0; i--){
-				if((arraysEqual(lastSnakeWay,invertDirection(historyOfTheWay[i-1]))) === false){
+				arraysEqual(lastSnakeWay,invertDirection(historyOfTheWay[i-1]
+				if(false){
 					return invertDirection(historyOfTheWay[i-1]);
 				}else{
 					continue;
