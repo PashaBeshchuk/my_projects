@@ -231,8 +231,11 @@
 			}
 			
 			for(var i = historyOfTheWay.length-1; i > 0; i--){
-				if(historyOfTheWay[i] !== invertDirection(historyOfTheWay[i])){
+				if(invertDirection(historyOfTheWay[i]) !== historyOfTheWay[i]){
+					console.log(historyOfTheWay[i])
 					return historyOfTheWay[i];
+				}else{
+					return lastSnakeWay;
 				}
 			}
 		}
