@@ -100,6 +100,8 @@
 			oldPositionSnake = bodySnakePosition.slice(0);
 			removeBodySnake(oldPositionSnake);
 			var step = snakeStep(lastSnakePath,historyOfTheSnakesWay);
+			console.log(step[0])
+			console.log(step[1])
 			var headSnake = [bodySnakePosition[0][0] + step[0],bodySnakePosition[0][1] + step[1]];
 			bodySnakePosition.unshift(headSnake);
 			bodySnakePosition.pop();
@@ -229,7 +231,7 @@
 			}
 			
 			for(var i = historyOfTheWay.length-1; i > 0; i--){
-				if(historyOfTheWay[i] != invertDirection(historyOfTheWay[i])){
+				if(historyOfTheWay[i] !== invertDirection(historyOfTheWay[i])){
 					return historyOfTheWay[i];
 				}
 			}
