@@ -89,7 +89,7 @@
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
 		var historyOfTheSnakesWay = [];
-		var lastSnakePath;
+		var lastSnakePath = [0,-1];
 		var snakeLength = 2;
 		
 		window.addEventListener("keydown", saveKeyCode);
@@ -114,9 +114,8 @@
 				bodySnakePosition.push(foodPosition);
 				foodPosition = undefined;
 			}
-			if(historyOfTheSnakesWay !== undefined){
-				lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
-			}
+			
+			lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
 			historyOfTheSnakesWay = [];
 		}
 		
@@ -226,25 +225,20 @@
 		}
 		
 		function snakeStep(lastSnakeWay,historyOfTheWay){
-			
-			if(lastSnakeWay == undefined){
-				return [0,-1];
-			}
-			
-			for(var i = historyOfTheWay.length-1; i > 0; i--){
-				if(arraysEqual(invertDirection(historyOfTheWay[i]),lastSnakeWay) === true){
+			for(var i = historyOfTheWay.length; i > 0; i--){
+				if((arraysEqual(lastSnakeWay,invertDirection(historyOfTheWay[i-1]))) === false){
+					return invertDirection(historyOfTheWay[i-1]);
+				}else{
 					continue;
 				}
 			}
-			return historyOfTheWay[i];
+			
 		}
-		
-		console.log(snakeStep([0, -1], [[1, 0], [0, 1]]))
 
 		function invertDirection(value){
 			for(var itemNumberValue = 0; itemNumberValue <value.length; itemNumberValue++){
 				value[itemNumberValue] = value[itemNumberValue] * -1;
-			}	
+			}
 			return value
 		}
 	
