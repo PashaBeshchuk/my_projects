@@ -225,32 +225,22 @@
 		}
 		
 		function snakeStep(lastSnakeWay,historyOfTheWay){
-			for(var i = historyOfTheWay.length-1; i >= 0; i--){
-				if(historyOfTheWay[i].length == 0){
+			if(historyOfTheWay.length == 0){
 					return lastSnakeWay;
 				}
-				if((arraysEqual(lastSnakeWay,invertDirection(historyOfTheWay[i]))) === false){
+			for(var i = historyOfTheWay.length-1; i >= 0; i--){
+				if(!arraysEqual(lastSnakeWay,invertDirection(historyOfTheWay[i]))){
 					return historyOfTheWay[i];
 				}
 			}
 			return lastSnakeWay;
 		}
 		
-		console.log(snakeStep([0,-1],[[0,1],[0,1]]))
-
 		function invertDirection(snakeDirection){
-			var newSnakeDirection = [];
-			var newNumber = [];
-			for(var i = 0; i < 2; i++){
-				newNumber[i] = snakeDirection[i];
-			}
-			newSnakeDirection.push(newNumber);
-			for(var itemNumberValue = 0; itemNumberValue < 2; itemNumberValue++){
-				newSnakeDirection[0][itemNumberValue] = newSnakeDirection[0][itemNumberValue] * -1;
-			}			
-			return newSnakeDirection;
+			return [-snakeDirection[0],-snakeDirection[1]];	
 		}
 	
+		
 			
 	</script>
 	</body>
