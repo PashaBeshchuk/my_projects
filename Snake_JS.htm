@@ -224,9 +224,6 @@
 		}
 		
 		function snakeStep(lastSnakeWay,historyOfTheWay){
-			if(historyOfTheWay.length == 0){
-					return lastSnakeWay;
-				}
 			for(var i = historyOfTheWay.length-1; i >= 0; i--){
 				if(!arraysEqual(lastSnakeWay,invertDirection(historyOfTheWay[i]))){
 					return historyOfTheWay[i];
