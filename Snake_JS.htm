@@ -84,13 +84,14 @@
 		var keyCodeDownButton = 40;
 		var cellsPerSecond = 1;
 		var second = 1000;
+		var snakeLength = 2;
 		var bodySnakePosition = buildBodyForSnake(snakeLength);
 		var foodPosition;
 		var snakeIsAlive = window.setInterval(tick, second/cellsPerSecond);
 		var oldPositionSnake;
 		var historyOfTheSnakesWay = [];
 		var lastSnakePath = [0,-1];
-		var snakeLength = 2;
+		
 		
 		window.addEventListener("keydown", saveKeyCode);
 		buildField(numberOfLines, numberOfCellsPerLine);
