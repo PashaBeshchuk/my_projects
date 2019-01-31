@@ -115,7 +115,11 @@
 				bodySnakePosition.push(foodPosition);
 				foodPosition = undefined;
 			}
-			lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
+			if(historyOfTheSnakesWay.length == 0){
+				lastSnakePath = [0,-1];
+			} else{
+				lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
+			}
 			historyOfTheSnakesWay = [];
 		}
 		
