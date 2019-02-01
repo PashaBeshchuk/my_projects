@@ -100,13 +100,6 @@
 		function tick(){
 			oldPositionSnake = bodySnakePosition.slice(0);
 			removeBodySnake(oldPositionSnake);
-			if(historyOfTheSnakesWay.length != 0){
-				if((invertDirection(lastSnakePath) == historyOfTheSnakesWay[historyOfTheSnakesWay.length-1]) === true){
-					lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
-				}else{
-					lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
-				}
-			}
 			var step = snakeStep(lastSnakePath,historyOfTheSnakesWay);
 			var headSnake = [bodySnakePosition[0][0] + step[0],bodySnakePosition[0][1] + step[1]];
 			bodySnakePosition.unshift(headSnake);
@@ -122,6 +115,7 @@
 				bodySnakePosition.push(foodPosition);
 				foodPosition = undefined;
 			}
+			lastSnakePath = step;
 			historyOfTheSnakesWay = [];
 		}
 		
