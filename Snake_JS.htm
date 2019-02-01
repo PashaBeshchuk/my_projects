@@ -20,7 +20,7 @@
 			table{
 				border:1px solid black;
 				border-spacing:0px;
-				//margin:auto;
+				margin:auto;
 				background:black;
 			}
 			
@@ -100,6 +100,13 @@
 		function tick(){
 			oldPositionSnake = bodySnakePosition.slice(0);
 			removeBodySnake(oldPositionSnake);
+			if(historyOfTheSnakesWay.length != 0){
+				if((invertDirection(lastSnakePath) == historyOfTheSnakesWay[historyOfTheSnakesWay.length-1]) === true){
+					lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
+				}else{
+					lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
+				}
+			}
 			var step = snakeStep(lastSnakePath,historyOfTheSnakesWay);
 			var headSnake = [bodySnakePosition[0][0] + step[0],bodySnakePosition[0][1] + step[1]];
 			bodySnakePosition.unshift(headSnake);
@@ -114,11 +121,6 @@
 				removeFood(bodySnakePosition[0]);
 				bodySnakePosition.push(foodPosition);
 				foodPosition = undefined;
-			}
-			if(historyOfTheSnakesWay.length == 0){
-				lastSnakePath = [0,-1];
-			} else{
-				lastSnakePath = historyOfTheSnakesWay[historyOfTheSnakesWay.length-1];
 			}
 			historyOfTheSnakesWay = [];
 		}
@@ -153,12 +155,16 @@
 			switch(e.keyCode){
 				case keyCodeRightButton:
 					historyOfTheSnakesWay.push([0, 1]);
+					break;
 				case keyCodeLeftButton:
 					historyOfTheSnakesWay.push([0,-1]);
+					break
 				case keyCodeUpButton:
 					historyOfTheSnakesWay.push([-1, 0]);
+					break;
 				case keyCodeDownButton:
 					historyOfTheSnakesWay.push([1, 0]);
+					break;
 			}
 		}
 		
